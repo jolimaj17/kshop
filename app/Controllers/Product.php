@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ProductModel;
-
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
 class Product extends BaseController
 {
     public function __construct()
@@ -17,28 +18,29 @@ class Product extends BaseController
     }
     public function display()
     {    
-       return $this->productModel->getProducts();
-        
-    }
-    public function create(){
-        return view('product');
+       return $this->productModel->getProducts();        
     }
     public function store() {
         $json = $this->request->getJSON();
-        $data = [
+        $data =[
             'name'=>$json->name,
             'price'=>$json->price,
             'quantity'=>$json->quantity,
             'color'=>$json->color
         ];
         return $this->productModel->insert($data);
-        //$products=$this->productModel->add_products();
     }
-    public function update() {
-       
-        $products=$this->productModel->update_products();
+    public function update($id) {
+        $json = $this->request->getJSON();
+        $data =[
+            'name'=>$json->name,
+            'price'=>$json->price,
+            'quantity'=>$json->quantity,
+            'color'=>$json->color
+        ];
+        return $this->productModel->update($id,$data);
     }
-    public function delete() {
-      return $this->productModel->delete_products();
+    public function delete($id) {
+        return $this->productModel->delete($id);
     }
 }

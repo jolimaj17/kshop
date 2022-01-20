@@ -45,39 +45,9 @@ class ProductModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    /**
-     * This is for retrieving all Kpop Merchandize
-     */
+ 
     public function getProducts(){
        return json_encode($this->findAll());
     }
-    /**
-     * This is for field validation
-     */
-    public function add_products()
-    {
-        $json = $this->request->getJSON();
-        $data =[
-            'name'=>$json->name,
-            'price'=>$json->price,
-            'quantity'=>$json->quantity,
-            'color'=>$json->color
-        ];
-        return $this->insert($data);
-    }
-    public function update_products($id=null)
-    {
-        $json = $this->request->getJSON();
-        $data =[
-            'name'=>$json->name,
-            'price'=>$json->price,
-            'quantity'=>$json->quantity,
-            'color'=>$json->color
-        ];
-        return $this->update($id,$data);
-    }
-    public function delete_products($id=null)
-    {
-        return $this->where('id', $id)->delete();
-    }
+  
 }
